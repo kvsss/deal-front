@@ -1,8 +1,16 @@
 <template>
-  <div >
-    <Header></Header>
-    <HomeContent></HomeContent>
-    <Footer></Footer>
+  <div class="home">
+    <el-container>
+      <el-header>
+        <Header/>
+      </el-header>
+      <el-main>
+<!--        <HomeContent/>-->
+      </el-main>
+      <el-footer>
+<!--        <Footer/>-->
+      </el-footer>
+    </el-container>
   </div>
 
 </template>
@@ -15,6 +23,7 @@ import Footer from "@/components/common/Footer";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
+  // eslint-disable-next-line vue/no-unused-components
   components: {Footer, Header, HomeContent}
 }
 </script>

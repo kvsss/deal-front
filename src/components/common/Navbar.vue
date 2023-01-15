@@ -1,13 +1,13 @@
 <template>
-  <div class="register">
-    注册页面
+  <div class="navbar">
+
   </div>
 </template>
 
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Register"
+  name: "Navbar"
 }
 </script>
 

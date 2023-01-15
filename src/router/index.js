@@ -12,15 +12,33 @@ const router = createRouter({
         {
             path: '/home',
             name: 'home',
-            children: [{
-                path: '/register',
-                name: 'register',
-                component: () => import('@/views/Register')
-            }],
-            component: () => import('@/views/Home')
+            component: () => import('@/views/Home'),
+            //嵌套
+            children: [
+                {
+                    path: '/register',
+                    name: 'register',
+                    component: () => import('@/views/Register')
+                },
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: () => import('@/views/Login')
+                },
+                {
+                    path: '/feedback',
+                    name: 'feedback',
+                    component: () => import('@/views/Feedback')
+                },
+                {
+                    path: '/goodsClass',
+                    name: 'goodsClass',
+                    component: () => import('@/views/GoodsClass')
+                }
+
+
+            ],
         }
-
     ]
-
 })
 export default router

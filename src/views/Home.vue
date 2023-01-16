@@ -1,18 +1,17 @@
 <template>
   <div class="home">
     <el-container>
-      <el-header>
+      <el-header style="height: 92px;">
         <Header/>
       </el-header>
       <el-main>
-<!--        <HomeContent/>-->
+        <HomeContent/>
       </el-main>
       <el-footer>
-<!--        <Footer/>-->
+        <Footer/>
       </el-footer>
     </el-container>
   </div>
-
 </template>
 
 <script>

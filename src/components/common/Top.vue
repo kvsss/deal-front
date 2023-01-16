@@ -1,73 +1,64 @@
 <template>
   <div class="top">
-    <!--    <div class="box_center cf">
-          <router-link :to="{ name: 'home' }" class="logo fl"
-                       style="width: 198px; float: left; padding: 23px 130px 0 0; display: block ;float: left">
-            &lt;!&ndash;        <img :src="logo" alt="小说精品屋"/>&ndash;&gt;
-          </router-link>
 
-          <div class="searchBar fl">
-            <div class="search cf">
-              <input
-                  v-model="keyword"
-                  type="text"
-                  placeholder="书名、作者、关键字"
-                  class="s_int"
-                  v-on:keyup.enter="searchByK"
-              />
-              <label class="search_btn" id="btnSearch" @click="searchByK()"
-              ><i class="icon"></i
-              ></label>
-            </div>
-          </div>
+    <!--  创建一个盒子,设置它的长度，不设置宽度
+      这是一个行内元素，在设置margin: o auto 达到左右居中的效果
+      -->
 
-          <div class="bookShelf fr" id="headerUserInfo">
-            &lt;!&ndash;
-            <a class="sj_link" href="/user/favorites.html">我的书架</a>&ndash;&gt;
-            <span v-if="!token" class="user_link"
-            >&lt;!&ndash;<i class="line mr20">|</i
-              >&ndash;&gt;
-              <router-link :to="{ name: 'login' }" class="mr15">登录</router-link>
-              <router-link :to="{ name: 'register' }" class="mr15"
-              >注册</router-link
-              >
-            </span>
-            <span v-if="token" class="user_link"
-            >&lt;!&ndash;<i class="line mr20">|</i
-              >&ndash;&gt;<router-link :to="{name:'userSetup'}" class="mr15">{{ nickName }}</router-link>
-              <a @click="logout" href="javascript:void(0)">退出</a></span
-            >
-          </div>
-        </div>-->
+    <!--
+    行内元素布局
+    先将块元素转为行内元素
+    -->
 
-    <el-row :gutter="20">
-
-      <!-- logo -->
-      <el-col :span="8">
-        <router-link :to="{ name: 'home' }" class="logo fl">
+    <!--
+      cf :是清除浮动
+      -->
+    <div class="box_center cf">
+      <!--   logo   -->
+      <div class="logo fl">
+        <router-link :to="{ name: 'home' }">
           <el-image :src="logo" fit="contain" alt="二手交易平台"/>
         </router-link>
-      </el-col>
+      </div>
 
-      <!-- 搜索框-->
-      <el-col :span="8">
 
-        <el-row style=" display: flex;flex-wrap: wrap;">
-          <el-col :span="18">
-            <el-input v-model="keyword" placeholder="物品名,关键字"/>
-          </el-col>
+      <!--   搜索栏目   -->
+      <!--  search_layout 是辅助search_container 布局的,有些布局不好设置，只好再设置一个外层容器作为布局    -->
+      <div class="search_layout">
+        <div class="search_container">
+          <!--输入框-->
+          <input
+              v-model="keyword"
+              type="text"
+              placeholder="物品名、关键字"
+              v-on:keyup.enter="searchByK"
+              class="search_input">
+          <!-- 按钮 -->
+          <button class="search_btn" @click="searchByK()"> 搜索</button>
+        </div>
+      </div>
 
-          <el-col :span="2">
-            <el-button icon="Search" circle/>
-          </el-col>
-        </el-row>
-      </el-col>
+
       <!--登录状态栏-->
-      <el-col :span="8">
-        第三个
-      </el-col>
-    </el-row>
-
+      <div class="bookShelf fr ">
+        <span v-if="!token" class="user_link">
+          <router-link :to="{ name: 'login' }" class="mr15 ">
+           <span class="black"> 登录</span>
+          </router-link>
+          <router-link :to="{ name: 'register' }" class="mr15">
+            <span class="black"> 注册</span>
+          </router-link>
+        </span>
+        <span v-if="token" class="user_link">
+          <router-link :to="{name:'userSetup'}" class="mr15">
+             <span class="black">{{ nickName }}</span>
+          </router-link>
+          <a @click="logout" href="javascript:void(0)">
+             <span class="black">退出</span>
+          </a>
+        </span>
+      </div>
+    </div>
 
   </div>
 </template>

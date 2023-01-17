@@ -47,4 +47,5 @@ a{
     background: #ff5000;
     /* 字体 */
     color: white;
+    outline:none;
 }

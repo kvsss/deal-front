@@ -16,6 +16,12 @@ const router = createRouter({
             //嵌套
             children: [
                 {
+                    // 默认匹配路径
+                    path: '',
+                    name: 'homeContent',
+                    component: () => import('@/views/HomeContent')
+                },
+                {
                     path: '/register',
                     name: 'register',
                     component: () => import('@/views/Register')
@@ -38,6 +44,11 @@ const router = createRouter({
 
 
             ],
+        },
+        {
+            path: "/:catchAll(.*)",
+            name: 'notFound',
+            component: () => import('@/views/NotFound'),
         }
     ]
 })

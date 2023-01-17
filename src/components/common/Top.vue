@@ -1,6 +1,5 @@
 <template>
   <div class="top">
-
     <!--  创建一个盒子,设置它的长度，不设置宽度
       这是一个行内元素，在设置margin: o auto 达到左右居中的效果
       -->
@@ -9,14 +8,13 @@
     行内元素布局
     先将块元素转为行内元素
     -->
-
     <!--
       cf :是清除浮动
       -->
     <div class="box_center cf">
       <!--   logo   -->
       <div class="logo fl">
-        <router-link :to="{ name: 'home' }">
+        <router-link :to="{ name: 'homeContent' }">
           <el-image :src="logo" fit="contain" alt="二手交易平台"/>
         </router-link>
       </div>
@@ -67,14 +65,15 @@
 
 
 import logo from "@/assets/images/logo.png";
-import {reactive, toRefs} from "vue";
+import {getCurrentInstance, nextTick, onUnmounted, reactive, toRefs} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {getToken, getNickName, removeToken, removeNickName, removeUid} from "@/utils/auth";
+import emitter from "@/utils/mitter";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Top",
-  setup() {
+  setup(props, context) {
     // 获得响应式对象
     const state = reactive({
       keyword: "",
@@ -85,14 +84,18 @@ export default {
     // state.token = getToken();
     const route = useRoute();
     const router = useRouter();
-
     state.keyword = route.query.key;
 
-    const searchByK = () => {
-      //
-      router.push({path: "/goodsClass", query: {key: state.keyword}});
-      // context.emit("eventSerch", state.keyword);
+
+    const searchByK = async () => {
+      // 这个函数是异步的
+      // 页面还没有来的及跳转就用可能直接出发了$emit事件
+      // 所以改成同步
+      await router.push({path: "/goodsClass", query: {key: state.keyword}});
+
+      emitter.$emit("search", state.keyword);
     };
+
 
     const logout = () => {
       removeToken();
@@ -101,6 +104,11 @@ export default {
       state.nickName = "";
       state.token = "";
     }
+
+    onUnmounted(() => {
+      // 事件卸载
+      emitter.$off("search");
+    })
 
     return {
       // toRefs(state) 转变为普通对象，但是基础属性为转变为ref对象

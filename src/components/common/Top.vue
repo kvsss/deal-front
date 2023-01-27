@@ -1,5 +1,5 @@
 <template>
-  <div class="top">
+  <div class="top cf">
     <!--  创建一个盒子,设置它的长度，不设置宽度
       这是一个行内元素，在设置margin: o auto 达到左右居中的效果
       -->
@@ -9,7 +9,7 @@
     先将块元素转为行内元素
     -->
     <!--
-      cf :是清除浮动
+      cf :clear float 是清除浮动
       -->
     <div class="box_center cf">
       <!--   logo   -->
@@ -38,7 +38,7 @@
 
 
       <!--登录状态栏-->
-      <div class="bookShelf fr ">
+      <div class="goodsShelf fr ">
         <span v-if="!token" class="user_link">
           <router-link :to="{ name: 'login' }" class="mr15 ">
            <span class="black"> 登录</span>
@@ -96,6 +96,18 @@ export default {
       emitter.$emit("search", state.keyword);
     };
 
+    // 登录事件
+    emitter.$on('login', () => {
+      state.token = getToken();
+      state.nickName = getNickName();
+    })
+
+    // 注册事件
+    emitter.$on('register', () => {
+      state.token = getToken();
+      state.nickName = getNickName();
+    })
+
 
     const logout = () => {
       removeToken();
@@ -108,6 +120,7 @@ export default {
     onUnmounted(() => {
       // 事件卸载
       emitter.$off("search");
+      emitter.$off("loginRefresh");
     })
 
     return {

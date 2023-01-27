@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from '@/router'
 import '@/assets/styles/base.css'
 import '@/assets/styles/onself.css'
+import '@/assets/styles/common.css'
 
 // 全局导入
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

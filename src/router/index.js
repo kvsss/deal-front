@@ -3,6 +3,7 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 const router = createRouter({
     // createWebHistory 路由模式路径不带#号(生产环境下不能直接访问项目，需要 nginx 转发)
     // createWebHashHistory 路由模式路径带#号
+    // history: createWebHashHistory(),
     history: createWebHashHistory(),
     routes: [
         {
@@ -40,10 +41,18 @@ const router = createRouter({
                     path: '/goodsClass',
                     name: 'goodsClass',
                     component: () => import('@/views/GoodsClass')
+                }, {
+                    path: '/userSetup',
+                    name: 'userSetup',
+                    component: () => import('@/views/UserSetup')
                 }
 
-
             ],
+        },
+        {
+            path: "/temp",
+            name: 'temp',
+            component: () => import('@/views/Temp'),
         },
         {
             path: "/:catchAll(.*)",

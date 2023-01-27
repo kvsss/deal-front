@@ -1,11 +1,15 @@
 <template>
   <div class="goodsClass">
-    <h1>分类</h1>
+    <div v-if="flag">
+      <h1>分类</h1>
+    </div>
+
+    <button @click="click"> 点击</button>
   </div>
 </template>
 
 <script>
-import {getCurrentInstance, onMounted, reactive} from "vue";
+import {getCurrentInstance, onMounted, reactive, toRefs} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import mitt from "mitt";
 import emitter from "@/utils/mitter";
@@ -29,7 +33,8 @@ export default {
       bookStatusOn: null,
       wordCountOn: null,
       updateTimeOn: null,
-      sortOn: null
+      sortOn: null,
+      flag: false,
     });
 
 
@@ -47,13 +52,31 @@ export default {
     const search = async () => {
       // 函数调用
       // const {data} = await searchBooks(state.searchCondition);
-      const {data} = await searchGoods(state.searchCondition)
 
-      // 数值绑定
-      state.goods = data.list;
-      state.searchCondition.pageNum = data.pageNum;
-      state.searchCondition.pageSize = data.pageSize;
-      state.total = Number(data.total);
+      try {
+        const {data} = await searchGoods(state.searchCondition)
+        if (!data.ok) {
+          return;
+        }
+        // 数值绑定
+        state.goods = data.data.list;
+        state.searchCondition.pageNum = data.data.pageNum;
+        state.searchCondition.pageSize = data.data.pageSize;
+        state.total = Number(data.total);
+      } catch (error) {
+
+      }
+    }
+
+
+    const click = () => {
+      state.flag = !state.flag
+      console.log(state.flag)
+    }
+
+    return {
+      ...toRefs(state),
+      click
     }
 
 

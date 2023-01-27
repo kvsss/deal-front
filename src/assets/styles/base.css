@@ -61,7 +61,7 @@
 .logo {
     width: 198px;
     float: left;
-    padding: 23px 130px 0 0;
+    padding: 23px 50px 0 0;
     display: block
 }
 
@@ -74,13 +74,13 @@
 /*.hotword { padding-top: 3px }
 .hotword a, .hotword span { color: #999; margin: 0 6px 0 5px }
 .hotword a:hover { color: #666 }*/
-.bookShelf {
-    margin-top: 27px;
+.goodsShelf {
+    margin-top: 30px;
     padding-left: 20px;
     overflow: hidden
 }
 
-.bookShelf .sj_link {
+.goodsShelf .sj_link {
     height: 38px;
     line-height: 38px;
     padding-left: 30px;
@@ -90,7 +90,7 @@
     float: left
 }
 
-.bookShelf .user_link {
+.goodsShelf .user_link {
     height: 38px;
     line-height: 38px;
     padding-left: 20px;
@@ -98,7 +98,7 @@
     float: right
 }
 
-.bookShelf .user_head {
+.goodsShelf .user_head {
     width: 26px;
     height: 26px;
     border-radius: 50%;
@@ -106,17 +106,17 @@
     margin: 6px 5px 0 0
 }
 
-.bookShelf .user_name {
+.goodsShelf .user_name {
     max-width: 100px;
     display: inline-block
 }
 
-.bookShelf .line {
+.goodsShelf .line {
     float: left;
     color: #ccc
 }
 
-/*.bookShelf img { position: absolute; top: 17px; left: 17px; z-index: 10 }*/
+/*.goodsShelf img { position: absolute; top: 17px; left: 17px; z-index: 10 }*/
 .mainNav {
     width: 100%;
     height: 48px;
@@ -325,7 +325,7 @@ i.vip_b {
     border-color: #7f7f7f transparent transparent;
 }
 
-.book_record {
+.goods_record {
     width: 382px;
     position: absolute;
     top: 0;
@@ -340,7 +340,7 @@ i.vip_b {
     border: 1px solid #d9d9d9
 }
 
-.book_record .sp {
+.goods_record .sp {
     width: 77px;
     height: 6px;
     background: #fff;
@@ -408,34 +408,34 @@ i.vip_b {
     color: #333
 }
 
-.record_list .book_intro {
+.record_list .goods_intro {
     width: 300px;
     height: 65px;
     padding-left: 10px;
     position: relative;
 }
 
-.record_list .book_intro p {
+.record_list .goods_intro p {
     height: 20px;
     line-height: 20px;
     overflow: hidden;
     color: #999;
 }
 
-.record_list .book_intro .p1 {
+.record_list .goods_intro .p1 {
     font-size: 14px;
 }
 
-.record_list .book_intro .p2 {
+.record_list .goods_intro .p2 {
     margin: 2px 0;
     white-space: nowrap;
     text-overflow: ellipsis
 }
 
-.record_list .book_intro .p3 {
+.record_list .goods_intro .p3 {
 }
 
-.record_list .book_intro i.vip {
+.record_list .goods_intro i.vip {
     margin: 0 0 0 3px
 }
 
@@ -473,7 +473,7 @@ i.vip_b {
     font-size: 12px
 }
 
-.copyright .menu a:hover, .bookShelf .sj_link:hover {
+.copyright .menu a:hover, .goodsShelf .sj_link:hover {
     color: #f70
 }
 

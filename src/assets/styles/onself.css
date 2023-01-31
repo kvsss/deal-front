@@ -51,7 +51,7 @@ a {
     outline: none;
 }
 
-.register_btn{
+.register_btn {
     width: 400px;
     height: 34px;
     display: block;
@@ -67,7 +67,7 @@ a {
     outline: none;
 }
 
-.login_btn{
+.login_btn {
     width: 400px;
     height: 34px;
     display: block;
@@ -86,4 +86,20 @@ a {
 .input_size {
     width: 400px;
     height: 38px
+}
+
+.user_span {
+    color: #aaa;
+    padding: 0 20px 0 0;
+}
+
+.padding_10 {
+    padding: 10px 0;
+}
+
+
+
+.avatar{
+    width: 178px;
+    height: 178px;
 }

@@ -115,6 +115,8 @@ export default {
       removeUid();
       state.nickName = "";
       state.token = "";
+
+      router.push({path: "/home"});
     }
 
     onUnmounted(() => {

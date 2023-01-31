@@ -1,12 +1,105 @@
 <template>
-<h1>
-  用户信息
-</h1>
+
+  <div class="userSetup">
+    <div class=" box_center ">
+      <el-row>
+        <el-col :span="8">
+          <el-menu
+              default-active="1"
+              @open="handleOpen"
+              @close="handleClose">
+            <template v-for="li in tableInfo">
+              <el-menu-item :index="li.index" @click="change(li.index)">
+
+                <el-icon>
+                  <component :is="li.icon"/>
+                </el-icon>
+                <span>{{ li.title }}</span>
+
+              </el-menu-item>
+            </template>
+          </el-menu>
+        </el-col>
+
+        <el-col :span="16">
+          <div style="min-height:400px">
+            <ul>
+              <template v-for="li in tableInfo">
+                <li v-if="li.isActive">
+                  <component :is="li.component"/>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+
 </template>
 
 <script>
+import UserInfo from "@/views/user/UserInfo";
+import OtherSet from "@/views/user/OtherSet";
+
+import {reactive, toRefs} from "vue";
+
 export default {
-  name: "UserSetup"
+  name: "UserSetup",
+  components: {
+    UserInfo,
+    OtherSet
+  },
+  setup() {
+    const state = reactive({
+      userPhoto: "",
+      nickName: "",
+      baseUrl: process.env.VUE_APP_BASE_API_URL,
+      imgBaseUrl: process.env.VUE_APP_BASE_IMG_URL,
+      activeIndex: '1',
+      tableInfo: [{
+        index: '1',
+        title: "账号设置",
+        icon: "user",
+        isActive: true,
+        component: 'UserInfo',
+      }, {
+        index: '2',
+        title: "其他设置",
+        icon: "setting",
+        isActive: false,
+        component: 'OtherSet',
+      },],
+
+      selectInfo: {
+        index: "1",
+      }
+    });
+
+    // 切换
+    const change = (index) => {
+      if (index === state.activeIndex) {
+        return;
+      }
+      state.tableInfo[parseInt(index) - 1].isActive = true;
+      state.tableInfo[parseInt(state.activeIndex) - 1].isActive = false;
+      state.activeIndex = index;
+    }
+
+    const handleOpen = () => {
+      console.log('打开')
+    }
+
+    const handleClose = () => {
+      console.log('关闭')
+    }
+    return {
+      ...toRefs(state),
+      handleOpen,
+      handleClose,
+      change,
+    }
+  }
 }
 </script>
 

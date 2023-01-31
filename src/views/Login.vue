@@ -70,13 +70,6 @@ export default {
     });
 
 
-    const fun = async () => {
-      return {
-        other: {}
-      }
-    }
-
-
     // 校验
     const check = () => {
       if (!state.form.username) {
@@ -101,7 +94,6 @@ export default {
         return
       }
 
-      const {other} = await fun();
       // date:后端返回的所以全部数据
       // await 是语法糖,相当于then 把response返回
       // 这里的data是 AxiosResponse<T,D>.data: T  ,即返回数据

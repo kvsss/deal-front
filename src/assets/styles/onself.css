@@ -97,9 +97,37 @@ a {
     padding: 10px 0;
 }
 
-
-
 .avatar{
     width: 178px;
     height: 178px;
+}
+
+.top{
+    margin-bottom: 5px;
+
+}
+
+.header_box_shadow {
+    background:#fff;
+    box-shadow: rgb(255, 255, 255) ;
+}
+
+.box_shadow{
+    background:#fff;
+    box-shadow: rgb(255, 255, 255) ;
+    border-radius: 30px;
+}
+
+.publish_btn{
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    float: left;
+    border: none;
+    /* 字体 */
+    color: black;
+    outline: none;
+    background: #FFFFFF;
+    /*color: #FFFFFF;*/
 }

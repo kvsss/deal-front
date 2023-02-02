@@ -1,13 +1,13 @@
 <template>
   <div class="home">
     <el-container>
-      <el-header style="height: 92px;">
+      <el-header style="height:140px ;padding:0">
         <Header/>
       </el-header>
-      <el-main>
+      <el-main style="padding:0;margin-top: 20px">
         <router-view></router-view>
       </el-main>
-      <el-footer>
+      <el-footer style="padding:0">
         <Footer/>
       </el-footer>
     </el-container>

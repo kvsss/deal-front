@@ -1,5 +1,23 @@
 <template>
   <div class="top cf">
+    <!-- 模态窗口   -->
+    <el-dialog
+        v-model="editDialogVisible"
+        title="发布闲置物品"
+        width="30%"
+        align-center>
+      <span>内容</span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-button color="#626aef" class="publish" type="primary" @click="editDialogVisible = false">
+          发布
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+
+
     <!--  创建一个盒子,设置它的长度，不设置宽度
       这是一个行内元素，在设置margin: o auto 达到左右居中的效果
       -->
@@ -36,6 +54,18 @@
         </div>
       </div>
 
+      <div style="float: left;margin-left: 45px;margin-top: 10px;">
+        <button class="publish_btn" @click="publish">
+          <ul style="padding-left:0">
+            <li style="text-align:center;">
+              <svg-icon name="publish"></svg-icon>
+            </li>
+            <li><span> 发布 </span>
+            </li>
+          </ul>
+        </button>
+      </div>
+
 
       <!--登录状态栏-->
       <div class="goodsShelf fr ">
@@ -47,7 +77,7 @@
             <span class="black"> 注册</span>
           </router-link>
         </span>
-        <span v-if="token" class="user_link">
+        <span v-if="token" class="user_link" >
           <router-link :to="{name:'userSetup'}" class="mr15">
              <span class="black">{{ nickName }}</span>
           </router-link>
@@ -79,6 +109,7 @@ export default {
       keyword: "",
       nickName: getNickName(),
       token: getToken(),
+      editDialogVisible: false,
     });
     // state.nickName = getNickName();
     // state.token = getToken();
@@ -101,7 +132,6 @@ export default {
       state.token = getToken();
       state.nickName = getNickName();
     })
-
     // 注册事件
     emitter.$on('register', () => {
       state.token = getToken();
@@ -118,6 +148,19 @@ export default {
 
       router.push({path: "/home"});
     }
+    const publish = () => {
+      // 先登录
+      if (!getToken()) {
+        router.push({path: "/login"});
+      }
+      state.editDialogVisible = true;
+      // 打开一个模态窗
+    }
+
+    const publishDialogClosed = () => {
+
+    }
+
 
     onUnmounted(() => {
       // 事件卸载
@@ -133,11 +176,17 @@ export default {
       logo,
       searchByK,
       logout,
+      publish,
+      publishDialogClosed,
     }
   }
 }
 </script>
 
 <style scoped>
-
+.publish {
+  color: #fff;
+  background-color: rgb(255, 80, 0);
+  border-color: rgb(255, 80, 0);
+}
 </style>

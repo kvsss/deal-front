@@ -1,8 +1,8 @@
 <template>
   <div class="register">
-    <div class=" box_center "
-         style="box-shadow: 0 2px 4px rgba(0,0,0,0.12),0 0 6px rgba(0,0,0,0.04);
-          text-align:center">
+    <div class=" box_center  box_shadow"
+         style="text-align:center">
+
       <h3>
         登录
       </h3>

@@ -53,7 +53,6 @@ export default {
     });
 
     onMounted(async () => {
-      console.log(getUid())
       try {
         const {data} = await getUserInfo(getUid());
         if (!data.ok) {

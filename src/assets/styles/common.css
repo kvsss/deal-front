@@ -1,3 +1,20 @@
+ul{
+  margin:0;
+}
+
+
 li {
     list-style-type: none;
 }
+
+body {
+    background: #f5f5f5;
+    /*background: #f7f9fa;*/
+    margin: 0;
+}
+
+h1,h2,h3,h4,ul,input,li{
+    margin :0;
+    padding :0;
+}
+

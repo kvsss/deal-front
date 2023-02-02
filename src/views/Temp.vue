@@ -1,55 +1,73 @@
 <template>
-  <table class="demo-border">
-    <tbody>
-    <tr>
-      <td class="text">Name</td>
-      <td class="text">Thickness</td>
-      <td class="line">Demo</td>
-    </tr>
-    <tr>
-      <td class="text">Solid</td>
-      <td class="text">1px</td>
-      <td class="line">
-        <div/>
-      </td>
-    </tr>
-    <tr>
-      <td class="text">Dashed</td>
-      <td class="text">2px</td>
-      <td class="line">
-        <div class="dashed"/>
-      </td>
-    </tr>
-    </tbody>
 
+  <button @click='editDialogVisible = true'> 点击</button>
+  <!-- 修改用户的对话框 -->
+  <el-dialog title='修改用户' :visible.sync='editDialogVisible' width='50%' @close='publishDialogClosed' append-to-body>
+    <!--      <el-form :model='editForm' :rules='editFormRules' ref='editFormRef' label-width='70px'>
+            <el-form-item label='账号' prop='username'>
+              <el-input v-model='editForm.username' disabled></el-input>
+            </el-form-item>
 
-  </table>
+            <el-form-item label='用户名' prop='name'>
+              <el-input v-model='editForm.name'></el-input>
+            </el-form-item>
 
+            <el-form-item label='密码' prop='password'>
+              <el-input type="password" v-model='editForm.password'></el-input>
+            </el-form-item>
 
-  <div
-      style="box-shadow: 0 2px 4px rgba(0,0,0,0.12),0 0 6px rgba(0,0,0,0.04);width: 40px;height: 40px;"
-      class="flex flex-col justify-center items-center"/>
+            <el-form-item label='手机' prop='phone'>
+              <el-input v-model='editForm.phone'></el-input>
+            </el-form-item>
 
+          </el-form>-->
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <h1>1</h1>
+    <span slot='footer' class='dialog-footer'>
+        <el-button @click='editDialogVisible = false'>取 消</el-button>
+        <el-button type='primary' @click='publishDialogClosed'>确 定</el-button>
+      </span>
+  </el-dialog>
 
 </template>
 
 
+<script>
+import {reactive, toRefs} from "vue";
+import {getNickName, getToken} from "@/utils/auth";
+
+export default {
+  name: "temp",
+  setup() {
+    const state = reactive({
+      keyword: "",
+      nickName: getNickName(),
+      token: getToken(),
+      editDialogVisible: false,
+    });
+
+    const publishDialogClosed = () => {
+
+    }
+    return {
+      ...toRefs(state),
+      publishDialogClosed,
+    }
+  }
+}
+</script>
+
 <style scoped>
-.demo-border .text {
-  width: 15%;
-}
 
-.demo-border .line {
-  width: 70%;
-}
-
-.demo-border .line div {
-  width: 100%;
-  height: 0;
-  border-top: 1px solid var(--el-border-color);
-}
-
-.demo-border .line .dashed {
-  border-top: 2px dashed var(--el-border-color);
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="header ">
+  <div class="header header_box_shadow">
     <Top/>
     <Navbar/>
   </div>

@@ -45,8 +45,11 @@ const router = createRouter({
                     path: '/userSetup',
                     name: 'userSetup',
                     component: () => import('@/views/UserSetup')
+                },  {
+                    path: '/publicInfo',
+                    name: 'publicInfo',
+                    component: () => import('@/views/goods/PublicInfo')
                 }
-
             ],
         },
         {

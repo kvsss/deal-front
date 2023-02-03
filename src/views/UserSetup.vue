@@ -22,7 +22,7 @@
         </el-col>
 
         <el-col :span="20">
-          <div style="min-height:400px">
+          <div style="min-height:400px;margin-left: 10px">
             <ul>
               <template v-for="li in tableInfo">
                 <li v-if="li.isActive">
@@ -87,11 +87,11 @@ export default {
     }
 
     const handleOpen = () => {
-      console.log('打开')
+      // console.log('打开')
     }
 
     const handleClose = () => {
-      console.log('关闭')
+      // console.log('关闭')
     }
     return {
       ...toRefs(state),

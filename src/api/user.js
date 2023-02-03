@@ -16,3 +16,7 @@ export function getUserInfo(uid) {
 export function updateUserInfo(userInfo) {
     return request.put('/front/user/updateUserInfo', userInfo);
 }
+
+export function publishGoods(params) {
+    return request.post('/front/user/goods', params);
+}

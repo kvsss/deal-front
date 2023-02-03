@@ -3,10 +3,10 @@
     <div class=" box_center box_shadow"
          style=" text-align:center">
 
-      <h3>
+      <h3 style="margin-bottom:10px">
         注册
       </h3>
-      <el-form :model="form" label-width=" 120px " style="margin: 0 auto; width: 700px; ">
+      <el-form :model="form" label-width=" 120px " style="margin: 0 auto; width: 650px; ">
         <el-form-item>
           <el-input
               class="input_size "

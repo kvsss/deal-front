@@ -1,7 +1,6 @@
 <template>
   <div class="goodsList box_center box_shadow">
 
-
     <el-row style="padding:10px">
       <el-col :span="4">
         <el-menu
@@ -20,7 +19,7 @@
       </el-col>
 
       <el-col :span="20">
-        <div style="min-height:400px">
+        <div style="min-height:400px ;margin-left:10px">
           <ul>
             <template v-for="li in tableInfo">
               <li v-if="li.isActive">

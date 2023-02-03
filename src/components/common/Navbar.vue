@@ -38,7 +38,6 @@ export default {
         });
         return;
       }
-
       router.push({
         name: "publicInfo",
       });

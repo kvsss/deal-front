@@ -149,7 +149,7 @@
         </div>
       </div>
 
-      <div style="float: left;margin-left: 45px;margin-top: 10px;">
+      <div style="float: left;margin-left: 145px;margin-top: 10px;">
         <button class="publish_btn" @click="publish">
           <ul style="padding-left:0">
             <li style="text-align:center;">

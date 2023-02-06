@@ -10,12 +10,14 @@ a {
 .search_layout {
     width: 500px;
     height: 42px;
+
     margin-top: 25px;
     float: left
 }
 
 .search_container {
     width: 500px;
+    margin-left: 50px;
     overflow: hidden;
     border: 1px solid #ff5000;
     border-radius: 50px;
@@ -97,28 +99,28 @@ a {
     padding: 10px 0;
 }
 
-.avatar{
+.avatar {
     width: 178px;
     height: 178px;
 }
 
-.top{
+.top {
     margin-bottom: 5px;
 
 }
 
 .header_box_shadow {
-    background:#fff;
-    box-shadow: rgb(255, 255, 255) ;
+    background: #fff;
+    box-shadow: rgb(255, 255, 255);
 }
 
-.box_shadow{
-    background:#fff;
-    box-shadow: rgb(255, 255, 255) ;
+.box_shadow {
+    background: #fff;
+    box-shadow: rgb(255, 255, 255);
     border-radius: 30px;
 }
 
-.publish_btn{
+.publish_btn {
     display: block;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -131,3 +133,58 @@ a {
     background: #FFFFFF;
     /*color: #FFFFFF;*/
 }
+
+.margin_top_25 {
+    margin-top: 20px;
+}
+
+.items_img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    float: left;
+    border-radius: 30px;
+    margin:11px;
+}
+
+.card {
+    width: 374px;
+    font-size: 16px;
+    margin: 14px 0 14px 14px;
+    background-color: #f7f9fa;
+    box-shadow: rgb(0, 0, 128);
+    border-radius: 30px;
+    color: #ff5000;
+}
+
+.card a {
+    color: #333;
+}
+
+.card p {
+    max-width: 152px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+}
+
+.items_txt {
+    margin:11px;
+    display: block;
+    float: left;
+    overflow: hidden
+}
+
+.price{
+    font-size: 22px;
+}
+
+
+.itemsList {
+    display: block;
+    float: left;
+}
+
+
+
+

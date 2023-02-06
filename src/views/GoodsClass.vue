@@ -30,7 +30,7 @@ export default {
       imgBaseUrl: process.env.VUE_APP_BASE_IMG_URL,
       workDirectionOn: 0,
       categoryOn: 0,
-      bookStatusOn: null,
+      goodsStatusOn: null,
       wordCountOn: null,
       updateTimeOn: null,
       sortOn: null,

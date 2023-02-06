@@ -49,6 +49,10 @@ const router = createRouter({
                     path: '/publicInfo',
                     name: 'publicInfo',
                     component: () => import('@/views/goods/PublicInfo')
+                },{
+                    path: '/goods/:id',
+                    name: 'goods',
+                    component: () => import('@/views/goods/Goods')
                 }
             ],
         },

@@ -93,7 +93,11 @@ export default {
 
     // 已进入就触发
     onMounted(async () => {
-      await loadImgVerifyCode();
+      try {
+        await loadImgVerifyCode();
+      } catch (e) {
+        console.log(e)
+      }
     });
 
     // 加载验证码

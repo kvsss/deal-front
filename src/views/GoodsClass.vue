@@ -1,10 +1,48 @@
 <template>
-  <div class="goodsClass">
-    <div v-if="flag">
-      <h1>分类</h1>
+  <div class="goodsClass " id="goodsSearch">
+    <div class="search box_center box_shadow">
+      <div class="search_list">
+
+        <!--  分类/时间/排序时间      -->
+        <ul >
+          <li class="search_li">
+           <label class="search_label"> 商品类别:</label>
+            <el-radio-group v-model="radio" fill="#FFF" >
+              <el-radio label="不限">不限</el-radio>
+              <el-radio :label="6">Option B</el-radio>
+              <el-radio :label="9">Option C</el-radio>
+            </el-radio-group>
+          </li>
+
+          <li class="search_li">
+
+
+            <label class="search_label">上架时间:</label>
+            <el-radio-group v-model="radio" fill="#FFF" >
+              <el-radio label="不限">不限</el-radio>
+              <el-radio :label="6">Option B</el-radio>
+              <el-radio :label="9">Option C</el-radio>
+            </el-radio-group>
+          </li>
+
+          <li class="search_li">
+            <label class="search_label">排序方式:</label>
+            <el-radio-group v-model="radio" fill="#FFF" >
+              <el-radio label="不限">不限</el-radio>
+              <el-radio :label="6">Option B</el-radio>
+              <el-radio :label="9">Option C</el-radio>
+            </el-radio-group>
+          </li>
+
+        </ul>
+      </div>
     </div>
 
-    <button @click="click"> 点击</button>
+
+    <div class="search_show box_center box_shadow">
+      <GoodsCard title="搜索结果" :dataLst="goods"></GoodsCard>
+    </div>
+
   </div>
 </template>
 
@@ -14,9 +52,11 @@ import {useRoute, useRouter} from "vue-router";
 import mitt from "mitt";
 import emitter from "@/utils/mitter";
 import {searchGoods} from "@/api/goods";
+import GoodsCard from "@/components/home/GoodsCard";
 
 export default {
   name: "GoodsClass",
+  components: {GoodsCard},
   setup(props, context) {
     const route = useRoute();
     const router = useRouter();
@@ -34,7 +74,7 @@ export default {
       wordCountOn: null,
       updateTimeOn: null,
       sortOn: null,
-      flag: false,
+      radio: "不限",
     });
 
 
@@ -64,19 +104,13 @@ export default {
         state.searchCondition.pageSize = data.data.pageSize;
         state.total = Number(data.total);
       } catch (error) {
-
+        console.log(error)
       }
     }
 
 
-    const click = () => {
-      state.flag = !state.flag
-      console.log(state.flag)
-    }
-
     return {
       ...toRefs(state),
-      click
     }
 
 

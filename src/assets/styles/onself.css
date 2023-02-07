@@ -144,7 +144,7 @@ a {
     display: block;
     float: left;
     border-radius: 30px;
-    margin:11px;
+    margin: 11px;
 }
 
 .card {
@@ -155,6 +155,7 @@ a {
     box-shadow: rgb(0, 0, 128);
     border-radius: 30px;
     color: #ff5000;
+    cursor: pointer;
 }
 
 .card a {
@@ -169,22 +170,60 @@ a {
 }
 
 .items_txt {
-    margin:11px;
+    margin: 11px;
     display: block;
     float: left;
     overflow: hidden
 }
 
-.price{
+.price {
     font-size: 22px;
 }
-
 
 .itemsList {
     display: block;
     float: left;
 }
 
+.title {
+    color: #111;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.search_show {
+    margin-top: 20px;
+}
+
+#goodsSearch .el-radio__input {
+    display: none;
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+    color: #fd7624 !important;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+    background: #fd7624 !important;
+    border-color: #fd7624 !important;
+}
+
+.search_li {
+    padding-bottom: 20px;
+}
+
+.search_list {
+    font-size: 16px;
+    padding: 30px 0 20px 30px;
+}
+
+.search_label {
+    padding-right: 30px;
+    color: #999;
+}
 
 
 

@@ -1,5 +1,5 @@
 <template>
-
+  <GoodsCard name="xa"></GoodsCard>
   <button @click='editDialogVisible = true'> 点击</button>
   <!-- 修改用户的对话框 -->
   <el-dialog title='修改用户' :visible.sync='editDialogVisible' width='50%' @close='publishDialogClosed' append-to-body>
@@ -46,9 +46,11 @@
 <script>
 import {reactive, toRefs} from "vue";
 import {getNickName, getToken} from "@/utils/auth";
+import GoodsCard from "@/components/home/GoodsCard";
 
 export default {
   name: "temp",
+  components: {GoodsCard},
   setup() {
     const state = reactive({
       keyword: "",

@@ -53,6 +53,22 @@ a {
     outline: none;
 }
 
+.comment_btn {
+    width: 80px;
+    height: 34px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    float: left;
+    border: none;
+    background: #ff5000;
+    /* 字体 */
+    color: white;
+    outline: none;
+}
+
 .register_btn {
     width: 400px;
     height: 34px;
@@ -147,6 +163,15 @@ a {
     margin: 11px;
 }
 
+.goods_img {
+    width: 400px;
+    height: 400px;
+    display: block;
+    float: left;
+    border-radius: 30px;
+    margin: 11px;
+}
+
 .card {
     width: 374px;
     font-size: 16px;
@@ -176,6 +201,23 @@ a {
     overflow: hidden
 }
 
+.goods_txt {
+    margin: 11px;
+    display: block;
+    float: left;
+    overflow: hidden
+}
+
+.goods_txt a {
+    color: #111111;
+}
+
+.goods_price {
+    color: #f65167;
+    font-size: 26px;
+    font-weight: 700;
+}
+
 .price {
     font-size: 22px;
 }
@@ -196,6 +238,7 @@ a {
 
 .search_show {
     margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 #goodsSearch .el-radio__input {
@@ -225,5 +268,74 @@ a {
     color: #999;
 }
 
+.buy_btn {
+    width: 150px;
+    height: 34px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    float: left;
+    border: none;
+    background: #ff5000;
+    /* 字体 */
+    color: white;
+    outline: none;
+}
 
+.buy_btn:hover {
+    background: #f40;
 
+}
+
+.goods_bottom {
+    margin-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.no_comment {
+    background: url(../images/no_comment.png) no-repeat center 80px;
+    padding: 70px 14px 115px;
+    color: #CCCCCC;
+    text-align: center;
+    font-size: 14px;
+}
+
+.user_head {
+    height: 50px;
+    width: 50px;
+    radius: 0 0 0 0;
+    border-radius: 50px;
+}
+
+.other a {
+    color: #333333;
+}
+
+.commentBar {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.pl_bar {
+    display: block;
+    margin-left: 20px;
+}
+
+.user_heads {
+    margin-left: 20px;
+}
+
+.other {
+    width: 1040px;
+}
+
+.reply_bar, .more_bar {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.name{
+    color: #999;
+}

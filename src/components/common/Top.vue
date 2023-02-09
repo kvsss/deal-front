@@ -237,11 +237,14 @@ export default {
     })
     // state.nickName = getNickName();
     // state.token = getToken();
-    state.keyword = route.query.key;
+/*    console.log(state.keyword)
+    console.log(route.query.key)
+    state.keyword = route.query.key*/
     const searchByK = async () => {
       // 这个函数是异步的
       // 页面还没有来的及跳转就用可能直接出发了$emit事件
       // 所以改成同步
+
       await router.push({path: "/goodsClass", query: {key: state.keyword}});
 
       emitter.$emit("search", state.keyword);

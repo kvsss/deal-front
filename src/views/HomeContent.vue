@@ -62,8 +62,6 @@ export default {
       const newData = await listNewestRankGoods()
       state.visitRecommend = visitData.data.data
       state.newRecommend = newData.data.data
-      console.log(state.visitRecommend.length)
-      console.log(state.newRecommend.length)
       await data.data.forEach((goods) => {
         if (goods.type == 0) {
           // 轮播图

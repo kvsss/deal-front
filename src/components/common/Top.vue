@@ -56,6 +56,7 @@
                   class="avatar-uploader"
                   :action="baseUrl + '/front/resource/uploadImage'"
                   :show-file-list="false"
+                  :headers="getToken"
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload">
                 <img
@@ -220,6 +221,9 @@ export default {
       editDialogVisible: false,
       baseUrl: process.env.VUE_APP_BASE_API_URL,
       imgBaseUrl: process.env.VUE_APP_BASE_IMG_URL,
+      getToken: {
+        Authorization: getToken()
+      },
       goodsCategory: [],
       userPhoto: '',
       form: {
@@ -237,9 +241,9 @@ export default {
     })
     // state.nickName = getNickName();
     // state.token = getToken();
-/*    console.log(state.keyword)
-    console.log(route.query.key)
-    state.keyword = route.query.key*/
+    /*    console.log(state.keyword)
+        console.log(route.query.key)
+        state.keyword = route.query.key*/
     const searchByK = async () => {
       // 这个函数是异步的
       // 页面还没有来的及跳转就用可能直接出发了$emit事件

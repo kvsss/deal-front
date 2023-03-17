@@ -8,6 +8,7 @@
           class="avatar-uploader"
           :action="baseUrl + '/front/resource/uploadImage'"
           :show-file-list="false"
+          :headers="token"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
 
@@ -36,7 +37,7 @@ import man from "@/assets/images/man.png";
 
 import {ElMessage} from "element-plus";
 import {getUserInfo, updateUserInfo} from "@/api/user";
-import {getUid} from "@/utils/auth";
+import {getToken, getUid} from "@/utils/auth";
 
 export default {
   name: "UserInfo",
@@ -48,6 +49,9 @@ export default {
       userPhoto: "",
       nickName: "",
       userSex: "",
+      token: {
+        Authorization: getToken()
+      },
       baseUrl: process.env.VUE_APP_BASE_API_URL,
       imgBaseUrl: process.env.VUE_APP_BASE_IMG_URL,
     });
@@ -92,6 +96,8 @@ export default {
     };
     // 先上传,然后更新数据
     const handleAvatarSuccess = (response, uploadFile) => {
+      console.log(uploadFile)
+      console.log(response.data)
       state.userPhoto = response.data;
       try {
         updateUserInfo({
@@ -102,7 +108,6 @@ export default {
         console.log(error)
       }
     };
-
     return {
       ...toRefs(state),
       man,

@@ -9,8 +9,6 @@
         align-center
         style=""
     >
-
-
       <el-form :model="form.goods" label-width=" 120px " style=" margin: 0 auto; width: 650px;">
         <el-form-item>
           <ul>
@@ -46,29 +44,59 @@
           </ul>
         </el-form-item>
 
+        <!--   封面     -->
         <el-form-item>
-          <ul>
-            <li>
-              <h4> 封面</h4>
-            </li>
-            <li>
-              <el-upload
-                  class="avatar-uploader"
-                  :action="baseUrl + '/front/resource/uploadImage'"
-                  :show-file-list="false"
-                  :headers="getToken"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload">
-                <img
-                    :src="form.goods.picUrl ? imgBaseUrl + form.goods.picUrl : picUpload"
-                    class="avatar" alt=""/>
-              </el-upload>
-            </li>
-          </ul>
+          <div>
+            <div style="display: block;width:178px;height: 221px" class="fl">
+              <ul>
+                <li>
+                  <h4> 封面</h4>
+                </li>
+                <li>
+                  <el-upload
+                      class="avatar-uploader"
+                      :action="baseUrl + '/front/resource/uploadImage'"
+                      :show-file-list="false"
+                      :headers="getToken"
+                      :on-success="handleAvatarSuccess"
+                      :before-upload="beforeAvatarUpload"
+                  >
+                    <img
+                        :src="form.goods.picUrl ? imgBaseUrl + form.goods.picUrl : picUpload"
+                        class="avatar" alt=""/>
+                  </el-upload>
+                </li>
+              </ul>
+            </div>
+
+            <div style="display: block; margin-left: 20px" class="fr">
+              <ul>
+                <li>
+                  <h4> 成色</h4>
+                  <el-input-number
+                      v-model="form.goods.oldDegree"
+                      class="mx-4"
+                      :min="1"
+                      :max="10"
+                  />
+                </li>
+                <li style="margin-top:30px">
+                  <h4> 购买时间</h4>
+                  <el-date-picker
+                      v-model="form.goods.buyTime"
+                      type="date"
+                      placeholder="购买时间"
+                      size="default"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </el-form-item>
 
         <el-form-item>
-          <ul>
+          <ul style="display:inline-block">
             <li>
               <h4> 价格</h4>
             </li>
@@ -83,6 +111,7 @@
               </el-input>
             </li>
           </ul>
+
         </el-form-item>
 
         <el-form-item>
@@ -150,6 +179,8 @@
         </div>
       </div>
 
+
+      <!--  发布按钮    -->
       <div style="float: left;margin-left: 145px;margin-top: 10px;">
         <button class="publish_btn" @click="publish">
           <ul style="padding-left:0">
@@ -236,6 +267,8 @@ export default {
           price: '',
           categoryId: null,
           categoryName: '',
+          oldDegree: '',
+          buyTime: '',
         },
       }
     })
@@ -351,6 +384,10 @@ export default {
       try {
         state.form.goods.uid = getUid();
         state.form.goods.nickName = getNickName();
+        // 清除小时-分钟-秒
+        state.form.goods.buyTime.setHours(0);
+        state.form.goods.buyTime.setMinutes(0);
+        state.form.goods.buyTime.setSeconds(0);
         await publishGoods(state.form.goods)
         ElMessage.success("发布成功!")
       } catch (e) {
@@ -366,6 +403,8 @@ export default {
       state.form.goods.price = ''
       state.form.goods.categoryId = null
       state.form.goods.categoryName = ''
+      state.form.goods.oldDegree = 1;
+      state.form.goods.buyTime = ''
     }
 
     // 加载分类信息

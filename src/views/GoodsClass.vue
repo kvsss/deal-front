@@ -36,6 +36,7 @@
               <el-radio label="create_time">上架时间</el-radio>
               <el-radio label="visit_count">点击量</el-radio>
               <el-radio label="comment_count">评论量</el-radio>
+              <el-radio label="old_degree">成色</el-radio>
             </el-radio-group>
           </li>
 
@@ -71,6 +72,7 @@ import emitter from "@/utils/mitter";
 import {listCategory, searchGoods} from "@/api/goods";
 import GoodsCard from "@/components/home/GoodsCard";
 import {addDay, dateFormat} from "@/utils";
+import {getToken, getUid} from "@/utils/auth";
 
 export default {
   name: "GoodsClass",

@@ -62,6 +62,7 @@ export default {
       const newData = await listNewestRankGoods()
       state.visitRecommend = visitData.data.data
       state.newRecommend = newData.data.data
+      // 热门推荐 和精品推荐，写死，
       await data.data.forEach((goods) => {
         if (goods.type == 0) {
           // 轮播图

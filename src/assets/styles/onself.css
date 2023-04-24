@@ -172,6 +172,10 @@ a {
     margin: 11px;
 }
 
+.gray_color {
+    color: #a5b2be;
+}
+
 .card {
     width: 374px;
     font-size: 16px;
@@ -215,6 +219,12 @@ a {
 .goods_price {
     color: #f65167;
     font-size: 26px;
+    font-weight: 700;
+}
+
+.goods_degree {
+    color: #f65167;
+    font-size: 21px;
     font-weight: 700;
 }
 
@@ -336,6 +346,10 @@ a {
     margin-left: 20px;
 }
 
-.name{
+.name {
     color: #999;
 }
+
+
+
+

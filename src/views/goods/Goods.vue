@@ -1,5 +1,77 @@
 <template>
   <div class="goods">
+    <!--  购买模态窗口   -->
+    <el-dialog
+        v-model="editDialogVisible"
+        title="购买窗口"
+        align-center
+        style=""
+    >
+      <el-form :model="form.order" label-width=" 120px " style=" margin: 0 auto; width: 650px;">
+        <el-form-item>
+          <ul>
+            <li>
+              <h4> 收货人</h4>
+            </li>
+            <li>
+              <el-input
+                  class="input_size "
+                  v-model="form.order.buyerName"
+                  name="goodsTitle"
+                  type="text"
+                  id="buyerName"
+                  placeholder="收货人名称"
+              />
+            </li>
+          </ul>
+        </el-form-item>
+
+        <el-form-item>
+          <ul>
+            <li>
+              <h4> 联系电话</h4>
+            </li>
+            <li>
+              <el-input
+                  class="input_size "
+                  v-model="form.order.buyerPhone"
+                  name="buyerPhone"
+                  type="text"
+                  placeholder="联系电话"
+              />
+            </li>
+          </ul>
+        </el-form-item>
+
+        <el-form-item>
+          <ul>
+            <li>
+              <h4> 收货地址</h4>
+            </li>
+            <li>
+              <el-input
+                  class="input_size "
+                  v-model="form.order.buyerAddress"
+                  name="buyerAddress"
+                  type="text"
+                  placeholder="收货地址"
+              />
+            </li>
+          </ul>
+        </el-form-item>
+
+        <el-form-item>
+            <span class="dialog-footer">
+              <el-button @click="editDialogVisible = false">取消</el-button>
+              <el-button color="#626aef" class="purchase" type="primary" @click="saveGoodsOrder">
+                购买
+              </el-button>
+            </span>
+        </el-form-item>
+
+      </el-form>
+    </el-dialog>
+
     <div class="goods_top box_center box_shadow cf">
       <!--     图片      -->
       <a href="javascript:void(0)">
@@ -11,23 +83,36 @@
       <!--     类容       -->
       <div class="goods_txt">
         <p>
-          <span href="javascript:void(0)">{{ goods.goodsTitle }}</span>
+          <span class="gray_color"> 商品名:</span>
+          <span href="javascript:void(0)">
+           {{ goods.goodsTitle }}
+          </span>
         </p>
         <p class="author">
-          <span href="javascript:void(0)">商家：{{ goods.nickName }}</span>
+          <span href="javascript:void(0)">
+             <span class="gray_color"> 商家:</span>
+            {{ goods.nickName }}</span>
         </p>
         <p class="intro"
            style=" ">
+          <span class="gray_color"> 商品详情:</span>
           <span
-              href="javascript:void(0)"
               v-html="goods.goodsContent"
           ></span>
         </p>
+
+        <p class="goods_degree"
+           style=" ">
+          {{ goods.oldDegree }}成新
+        </p>
+
         <div style="margin-top:45px">
             <span class="goods_price">
               ¥{{ goods.price }}
             </span>
         </div>
+
+
         <div style="margin-top:45px">
           <button @click="buy" class="buy_btn">立即购买</button>
         </div>
@@ -185,12 +270,12 @@
 <script>
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, reactive, toRefs} from "vue";
-import {getUid} from "@/utils/auth";
+import {getToken, getUid} from "@/utils/auth";
 import {addVisitCount, getGoodsById, listNewestComments} from "@/api/goods";
 import no_comment from "@/assets/images/no_comment.png";
 import man from "@/assets/images/man.png";
 import {ElMessage} from "element-plus";
-import {comment, deleteComment, updateComment} from "@/api/user";
+import {comment, deleteComment, goodsOrder, updateComment} from "@/api/user";
 
 export default {
   name: "Goods",
@@ -199,6 +284,8 @@ export default {
     const router = useRouter();
     const state = reactive({
       uid: getUid(),
+      token: getToken(),
+      editDialogVisible: false,
       goods: {},
       books: [],
       chapterAbout: {},
@@ -208,6 +295,17 @@ export default {
       dialogUpdateCommentFormVisible: false,
       commentId: "",
       updateComment: "",
+      form: {
+        order: {
+          goodsId: '',
+          sellerId: '',
+          buyerId: getUid(),
+          price: '',
+          buyerName: '',
+          buyerAddress: '',
+          buyerPhone: ''
+        }
+      },
     });
 
 
@@ -222,8 +320,11 @@ export default {
       try {
         const {data} = await getGoodsById(goodsId);
         state.goods = data.data;
-        // 添加访问量
-        await addVisitCount(goodsId)
+
+        if (state.uid != null) {
+          // 添加访问量
+          await addVisitCount(goodsId)
+        }
       } catch (e) {
         console.log(e)
       }
@@ -240,7 +341,9 @@ export default {
 
     const buy = () => {
       const goodsId = route.params.id;
-      console.log(goodsId)
+      // 打开购买框
+      state.editDialogVisible = true;
+      // console.log(goodsId)
     }
 
     const userComment = async () => {
@@ -308,10 +411,33 @@ export default {
           return;
         }
         ElMessage.success("删除成功!")
-        loadNewestComments(state.goods.goodsId);
+        await loadNewestComments(state.goods.goodsId);
       } catch (e) {
         console.log(e)
       }
+    }
+
+
+    const saveGoodsOrder = async () => {
+      try {
+        state.form.order.goodsId = state.goods.goodsId;
+        state.form.order.sellerId = state.goods.uid;
+        state.form.order.price = state.goods.price;
+
+        const {data} = await goodsOrder(state.form.order)
+        if (!data.ok) {
+          return;
+        }
+        ElMessage.success("购买成功!")
+      } catch (e) {
+        console.log(e)
+      }
+      // 重置
+      state.editDialogVisible = false
+
+      state.form.order.buyerName = ''
+      state.form.order.buyerPhone = ''
+      state.form.order.buyerAddress = ''
     }
 
     return {
@@ -323,6 +449,7 @@ export default {
       updateUserComment,
       deleteUserComment,
       goUpdateComment,
+      saveGoodsOrder,
     }
   }
 
@@ -331,5 +458,10 @@ export default {
 </script>
 
 <style scoped>
-
+.purchase {
+  margin-left: 275px;
+  color: #fff;
+  background-color: rgb(255, 80, 0);
+  border-color: rgb(255, 80, 0);
+}
 </style>

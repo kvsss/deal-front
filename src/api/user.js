@@ -32,3 +32,9 @@ export function deleteComment(id, uid) {
 export function updateComment(id, uid, content) {
     return request.putForm(`/front/user/comment/${id}/${uid}`, content);
 }
+
+export function goodsOrder(params) {
+    return request.post('/front/user/goodsOrder', params);
+}
+
+

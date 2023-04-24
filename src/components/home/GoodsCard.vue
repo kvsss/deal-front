@@ -11,9 +11,9 @@
             v-for="(item, index) in dataLst"
             :key="index">
 
-          <div class=" card  cf"  @click="goodsDetail(item.goodsId)" >
+          <div class=" card  cf" @click="goodsDetail(item.goodsId)">
             <!--     图片      -->
-            <a href="javascript:void(0)" >
+            <a href="javascript:void(0)">
               <img
                   class="items_img"
                   :src="`${imgBaseUrl}` + `${item.picUrl}`"
@@ -23,19 +23,23 @@
             <!--     类容       -->
             <div class="items_txt">
               <p>
-                <a href="javascript:void(0)" >{{ item.goodsTitle }}</a>
+                <a href="javascript:void(0)">{{ item.goodsTitle }}</a>
               </p>
               <p class="author">
                 <a href="javascript:void(0)">商家：{{ item.nickName }}</a>
               </p>
-              <p class="intro"
-                 style=" ">
+              <p class="intro" style=" ">
                 <a
                     href="javascript:void(0)"
                     v-html="item.goodsContent"
                 ></a>
               </p>
-              <div style="margin-top:45px">
+
+              <p class="">
+                {{ item.oldDegree }}成新
+              </p>
+
+              <div style="margin-top:35px">
                   <span class="price">
                     ¥{{ item.price }}
                   </span>

@@ -10,7 +10,7 @@
             <router-link :to="{ name: 'homeContent' }">首页</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'homeContent' }"> 其他</router-link>
+            <router-link :to="{ name: 'platformGoods' }"> 长大发布</router-link>
           </li>
           <!--<li class=""><a href="/pay/index.html">充值</a></li>-->
           <li><a @click="goGoods" href="javascript:void(0)">发布专区</a></li>

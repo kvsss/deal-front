@@ -9,13 +9,15 @@
       </el-carousel>
     </div>
 
+<!--
     <GoodsCard title="热门推荐" :dataLst="hotRecommend"></GoodsCard>
 
     <GoodsCard title="精品推荐" :dataLst="goodRecommend"></GoodsCard>
+-->
 
-    <GoodsCard title="点击最多" :dataLst="visitRecommend"></GoodsCard>
+    <GoodsCard title="点击最多" :dataList="visitRecommend"></GoodsCard>
 
-    <GoodsCard title="最新发布" :dataLst="newRecommend"></GoodsCard>
+    <GoodsCard title="最新发布" :dataList="newRecommend"></GoodsCard>
 
   </div>
 </template>

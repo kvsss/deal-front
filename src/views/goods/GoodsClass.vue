@@ -12,7 +12,6 @@
               <template v-for="(item, index)  in goodsCategory">
                 <el-radio :label="item.id">{{ item.name }}</el-radio>
               </template>
-
             </el-radio-group>
           </li>
 
@@ -40,13 +39,23 @@
             </el-radio-group>
           </li>
 
+          <li class="search_li">
+            <label class="search_label">发布方式:</label>
+            <el-radio-group v-model="search.scene" fill="#FFF" @change="changeScene">
+              <el-radio label="不限">不限</el-radio>
+              <el-radio label="1">个人</el-radio>
+              <el-radio label="2">长大平台</el-radio>
+
+            </el-radio-group>
+          </li>
+
         </ul>
       </div>
     </div>
 
 
     <div class="search_show box_center box_shadow">
-      <GoodsCard title="搜索结果" :dataLst="goods"></GoodsCard>
+      <GoodsCard title="搜索结果" :dataList="goods"></GoodsCard>
 
       <div style="margin-left:400px">
         <el-pagination
@@ -99,6 +108,7 @@ export default {
         categoryId: "不限",
         publishTimeMin: "不限",
         sort: "不限",
+        scene: "不限",
       }
     });
 
@@ -120,6 +130,7 @@ export default {
     });
 
     const changeCategory = (categoryId) => {
+      console.log(categoryId)
       state.searchCondition.categoryId = categoryId;
       search();
     }
@@ -138,6 +149,14 @@ export default {
 
     const changeSort = (sort) => {
       state.searchCondition.sort = sort;
+      search();
+    }
+
+    const changeScene = (scene) => {
+      console.log(scene)
+      state.searchCondition.scene = scene;
+      console.log(state.searchCondition.scene = scene)
+
       search();
     }
 
@@ -175,6 +194,7 @@ export default {
       // const {data} = await searchBooks(state.searchCondition);
       checkAndSetCondition()
       try {
+        console.log(state.searchCondition)
         const {data} = await searchGoods(state.searchCondition)
         if (!data.ok) {
           return;
@@ -184,7 +204,7 @@ export default {
         state.searchCondition.pageNum = data.data.pageNum;
         state.searchCondition.pageSize = data.data.pageSize;
         state.total = Number(data.data.total);
-        console.log(total)
+        console.log(state.total)
       } catch (error) {
         console.log(error)
       }
@@ -197,6 +217,7 @@ export default {
       changeDay,
       changeSort,
       handleCurrentChange,
+      changeScene,
     }
 
 

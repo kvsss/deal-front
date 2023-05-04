@@ -21,6 +21,11 @@ const router = createRouter({
                     path: '',
                     name: 'homeContent',
                     component: () => import('@/views/HomeContent')
+                }, {
+                    // 默认匹配路径
+                    path: '',
+                    name: 'platformGoods',
+                    component: () => import('@/views/PlatformGoods')
                 },
                 {
                     path: '/register',
@@ -40,16 +45,16 @@ const router = createRouter({
                 {
                     path: '/goodsClass',
                     name: 'goodsClass',
-                    component: () => import('@/views/GoodsClass')
+                    component: () => import('@/views/goods/GoodsClass')
                 }, {
                     path: '/userSetup',
                     name: 'userSetup',
-                    component: () => import('@/views/UserSetup')
-                },  {
+                    component: () => import('@/views/user/UserSetup')
+                }, {
                     path: '/publicInfo',
                     name: 'publicInfo',
-                    component: () => import('@/views/goods/PublicInfo')
-                },{
+                    component: () => import('@/views/publicInfo/PublicInfo')
+                }, {
                     path: '/goods/:id',
                     name: 'goods',
                     component: () => import('@/views/goods/Goods')
@@ -70,7 +75,7 @@ const router = createRouter({
 })
 
 // 解决 vue 中路由跳转时，总是从新页面中间开始显示
-router.afterEach((to,from,next) => {
-    window.scrollTo(0,0)
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0)
 })
 export default router

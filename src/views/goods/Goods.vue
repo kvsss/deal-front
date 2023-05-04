@@ -82,6 +82,14 @@
       </a>
       <!--     类容       -->
       <div class="goods_txt">
+
+        <div v-if="goods.extra === '1' " style="color: #f65167">
+          <el-icon>
+            <PriceTag/>
+          </el-icon>
+          平台发布
+        </div>
+
         <p>
           <span class="gray_color"> 商品名:</span>
           <span href="javascript:void(0)">

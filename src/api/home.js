@@ -12,3 +12,9 @@ export function listVisitRankGoods() {
 export function listNewestRankGoods() {
     return request.get('/front/home/newest_rank');
 }
+
+
+// 列出平台商品
+export function listPlatformGoods() {
+    return request.get('/front/home/platform_goods');
+}

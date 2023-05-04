@@ -8,7 +8,7 @@
       <div class="recommend cf" id="hotRecommend">
         <div
             class="itemsList"
-            v-for="(item, index) in dataLst"
+            v-for="(item, index) in dataList"
             :key="index">
 
           <div class=" card  cf" @click="goodsDetail(item.goodsId)">
@@ -22,6 +22,13 @@
             </a>
             <!--     类容       -->
             <div class="items_txt">
+              <div v-if="item.extra === '1' ">
+                <el-icon>
+                  <PriceTag/>
+                </el-icon>
+                平台发布
+              </div>
+
               <p>
                 <a href="javascript:void(0)">{{ item.goodsTitle }}</a>
               </p>
@@ -39,7 +46,7 @@
                 {{ item.oldDegree }}成新
               </p>
 
-              <div style="margin-top:35px">
+              <div style="margin-top:10px">
                   <span class="price">
                     ¥{{ item.price }}
                   </span>
@@ -67,7 +74,7 @@ export default {
       type: String,
       required: true,
     },
-    dataLst: {
+    dataList: {
       type: Array,
       required: true,
     }

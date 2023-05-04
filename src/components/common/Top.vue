@@ -10,6 +10,15 @@
         style=""
     >
       <el-form :model="form.goods" label-width=" 120px " style=" margin: 0 auto; width: 650px;">
+
+
+        <el-form-item>
+          <el-radio-group v-model="form.goods.extra" class="ml-4">
+            <el-radio label="0" size="large">个人发布</el-radio>
+            <el-radio label="1" size="large">发布到长大平台</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
         <el-form-item>
           <ul>
             <li>
@@ -27,6 +36,7 @@
             </li>
           </ul>
         </el-form-item>
+
         <el-form-item>
           <ul>
             <li>
@@ -269,6 +279,7 @@ export default {
           categoryName: '',
           oldDegree: '',
           buyTime: '',
+          extra: '0',
         },
       }
     })
@@ -388,12 +399,16 @@ export default {
         state.form.goods.buyTime.setHours(0);
         state.form.goods.buyTime.setMinutes(0);
         state.form.goods.buyTime.setSeconds(0);
-        await publishGoods(state.form.goods)
-        ElMessage.success("发布成功!")
+
+        const {data} = await publishGoods(state.form.goods)
+        if (!data.ok) {
+          return;
+        }
       } catch (e) {
         console.log(e)
       }
 
+      ElMessage.success("发布成功!")
       // 重置
       state.editDialogVisible = false
 
@@ -405,6 +420,7 @@ export default {
       state.form.goods.categoryName = ''
       state.form.goods.oldDegree = 1;
       state.form.goods.buyTime = ''
+      state.form.goods.extra = "0"
     }
 
     // 加载分类信息

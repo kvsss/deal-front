@@ -7,12 +7,14 @@
             @open="handleOpen"
             @close="handleClose">
           <template v-for="li in tableInfo">
-            <el-menu-item :index="li.index" @click="change(li.index)">
-              <el-icon>
-                <component :is="li.icon"/>
-              </el-icon>
-              <span>{{ li.title }}</span>
-            </el-menu-item>
+<!--            <div v-if="li.show">-->
+              <el-menu-item :index="li.index" @click="change(li.index)">
+                <el-icon>
+                  <component :is="li.icon"/>
+                </el-icon>
+                <span>{{ li.title }}</span>
+              </el-menu-item>
+<!--            </div>-->
           </template>
         </el-menu>
       </el-col>
@@ -89,7 +91,7 @@ import {
   getSellGoods
 } from "@/api/user";
 import {ElMessage} from "element-plus";
-import {getUid} from "@/utils/auth";
+import {getRole, getUid} from "@/utils/auth";
 import emitter from "@/utils/mitter";
 
 export default {
@@ -109,6 +111,7 @@ export default {
     PlatformOrderTable,
   },
   setup() {
+    let role = getRole();
     const state = reactive({
       userPhoto: "",
       nickName: "",
@@ -130,7 +133,7 @@ export default {
 
       indexComponent: 'PublicTable',
       dataList: [],
-
+      role: getRole(),
       // 主键
       tableInfo: [
         {
@@ -139,42 +142,49 @@ export default {
           icon: "ArrowUpBold",
           isActive: true,
           component: 'PublicTable',
+          show: role === '3'
         }, {
           index: '2',
           title: "我下架的",
           icon: "SortDown",
-          isActive: true,
+          isActive: false,
           component: 'OutTable',
+          show: role === '3'
         }, {
           index: '3',
           title: "我卖出的",
           icon: "Handbag",
           isActive: false,
           component: 'SellTable',
+          show: role === '3'
         }, {
           index: '4',
           title: "我买到的",
           icon: "ShoppingBag",
           isActive: false,
           component: 'BuyTable',
+          show: role === '3'
         }, {
           index: '5',
           title: "申请",
           icon: "platform",
           isActive: false,
           component: 'ApplyTable',
+          show: role === '2'
         }, {
           index: '6',
           title: "上架中",
           icon: "ArrowUpBold",
           isActive: false,
           component: 'OnApplyTable',
+          show: role === '2'
         }, {
           index: '7',
           title: "订单",
           icon: "ArrowUpBold",
           isActive: false,
           component: 'PlatformOrderTable',
+          show: role === '2'
         }/*{
           index: '5',
           title: "待发货",

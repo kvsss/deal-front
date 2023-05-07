@@ -8,6 +8,8 @@ const NickNameKey = 'nikeName'
 
 const UidKey = 'uid'
 
+const RoleKey = 'role'
+
 // token
 export const getToken = () => {
     return localStorage.getItem(TokenKey)
@@ -45,6 +47,19 @@ export const setUid = (uid) => {
 
 export const removeUid = () => {
     localStorage.removeItem(UidKey)
+}
+
+// role
+export const getRole = () => {
+    return localStorage.getItem(RoleKey)
+}
+
+export const setRole = (role) => {
+    localStorage.setItem(RoleKey, role)
+}
+
+export const removeRole = () => {
+    localStorage.removeItem(RoleKey)
 }
 
 

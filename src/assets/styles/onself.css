@@ -102,6 +102,23 @@ a {
 }
 
 
+.admin_login_btn {
+    width: 400px;
+    height: 34px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    float: left;
+    border: none;
+    background: #8686d3;
+    /* 字体 */
+    color: white;
+    outline: none;
+}
+
+
 .user_info_edit_btn{
     width: 120px;
     height: 34px;

@@ -23,7 +23,7 @@ const router = createRouter({
                     component: () => import('@/views/HomeContent')
                 }, {
                     // 默认匹配路径
-                    path: '',
+                    path: '/platformGoods',
                     name: 'platformGoods',
                     component: () => import('@/views/PlatformGoods')
                 },
@@ -60,6 +60,44 @@ const router = createRouter({
                     component: () => import('@/views/goods/Goods')
                 }
             ],
+        }, {
+            path: '/admin',
+            name: 'admin',
+            component: () => import('@/views/admin/Admin'),
+            //嵌套
+            children: [
+                {
+                    path: '',
+                    name: 'adminUser1',
+                    redirect: '/adminLogin'
+                },
+                {
+                    path: '/admin/user',
+                    name: 'adminUser',
+                    component: () => import('@/views/admin/page/User')
+                }, {
+                    path: '/admin/goodsType',
+                    name: 'adminGoodsType',
+                    component: () => import('@/views/admin/page/GoodsType')
+                }, {
+                    path: '/admin/goods',
+                    name: 'adminGoods',
+                    component: () => import('@/views/admin/page/Goods')
+                }, {
+                    path: '/admin/goodsOrder',
+                    name: 'adminGoodsOrder',
+                    component: () => import('@/views/admin/page/GoodsOrder')
+                }, {
+                    path: '/admin/summarization',
+                    name: 'adminSummarization',
+                    component: () => import('@/views/admin/page/Summarization')
+                },
+            ],
+        },
+        {
+            path: "/adminLogin",
+            name: 'adminLogin',
+            component: () => import('@/views/admin/Login'),
         },
         {
             path: "/temp",

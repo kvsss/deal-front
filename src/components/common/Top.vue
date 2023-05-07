@@ -233,7 +233,7 @@
 import logo from "@/assets/images/logo.png";
 import {getCurrentInstance, nextTick, onMounted, onUnmounted, reactive, toRefs} from "vue";
 import {useRouter, useRoute} from "vue-router";
-import {getToken, getNickName, removeToken, removeNickName, removeUid, getUid} from "@/utils/auth";
+import {getToken, getNickName, removeToken, removeNickName, removeUid, getUid, removeRole} from "@/utils/auth";
 import emitter from "@/utils/mitter";
 import {ElMessage} from "element-plus";
 import picUpload from "@/assets/images/pic_upload.png";
@@ -313,6 +313,7 @@ export default {
       removeToken();
       removeNickName();
       removeUid();
+      removeRole();
       state.nickName = "";
       state.token = "";
 

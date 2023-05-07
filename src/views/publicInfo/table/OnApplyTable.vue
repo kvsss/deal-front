@@ -147,9 +147,9 @@
       <li>
         <el-radio-group v-model="choose" class="ml-4" @change="change">
           <el-radio label="1" size="large">上架中</el-radio>
-<!--          <el-radio label="2" size="large">已成交</el-radio>
+          <el-radio label="2" size="large">已成交</el-radio>
           <el-radio label="3" size="large">成交中</el-radio>
-          <el-radio label="4" size="large">已取消</el-radio>-->
+          <el-radio label="4" size="large">已取消</el-radio>
         </el-radio-group>
       </li>
 

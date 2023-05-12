@@ -12,6 +12,11 @@ export function getGoodsById(goodsId) {
     return request.get(`/front/goods/${goodsId}`);
 }
 
+// 获得卖家信息
+export function getSeller(goodsId) {
+    return request.get(`/front/user/seller/${goodsId}`);
+}
+
 
 export function addVisitCount(params) {
     return request.post('/front/goods/visit', params);

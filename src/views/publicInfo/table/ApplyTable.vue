@@ -176,9 +176,6 @@
                   <p>
                     <a href="javascript:void(0)">{{ item.goodsTitle }}</a>
                   </p>
-                  <!--                  <p class="author">
-                                      <a href="javascript:void(0)">商家：{{ item.nickName }}</a>
-                                    </p>-->
                   <p class="intro" style=" ">
                     <a
                         href="javascript:void(0)"

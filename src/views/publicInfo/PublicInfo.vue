@@ -3,23 +3,21 @@
     <el-row style="padding:10px">
       <el-col :span="4">
         <el-menu
-            default-active="1"
+            :default-active="active"
             @open="handleOpen"
             @close="handleClose">
           <template v-for="li in tableInfo">
-<!--            <div v-if="li.show">-->
+            <div v-if="li.show">
               <el-menu-item :index="li.index" @click="change(li.index)">
                 <el-icon>
                   <component :is="li.icon"/>
                 </el-icon>
                 <span>{{ li.title }}</span>
               </el-menu-item>
-<!--            </div>-->
+            </div>
           </template>
         </el-menu>
       </el-col>
-
-
       <el-col :span="20">
         <div style="min-height:400px ;margin-left:10px">
           <ul>
@@ -76,9 +74,10 @@ import OutTable from "@/views/publicInfo/table/OutTable";
 import ApplyTable from "@/views/publicInfo/table/ApplyTable";
 import OnApplyTable from "@/views/publicInfo/table/OnApplyTable";
 import PlatformOrderTable from "@/views/publicInfo/table/PlatformOrderTable";
+import Empty from "@/views/publicInfo/table/Empty";
 
 
-import {onMounted, reactive, toRefs} from "vue";
+import {onMounted, onUnmounted, reactive, toRefs} from "vue";
 import SvgIcon from "@/components/common/SvgIcon";
 import {listCategory, searchGoods} from "@/api/goods";
 import {
@@ -109,6 +108,7 @@ export default {
     ApplyTable,
     OnApplyTable,
     PlatformOrderTable,
+    Empty,
   },
   setup() {
     let role = getRole();
@@ -134,13 +134,14 @@ export default {
       indexComponent: 'PublicTable',
       dataList: [],
       role: getRole(),
+      active: '1',
       // 主键
       tableInfo: [
         {
           index: '1',
           title: "我发布的",
           icon: "ArrowUpBold",
-          isActive: true,
+          isActive: false,
           component: 'PublicTable',
           show: role === '3'
         }, {
@@ -236,11 +237,34 @@ export default {
     }
 
     onMounted(async () => {
+      const role = getRole();
+      // 管理员
+      if (role === '1') {
+        state.indexComponent = "Empty"
+      } // 平台
+      else if (role === '2') {
+        // 右组件
+        state.active = '5'
+        // 左组件
+        state.indexComponent = "ApplyTable"
+        // 搜索
+        state.activeIndex = '5'
+        // state.tableInfo[4].isActive = true;
+      }  // 普通用户
+      else if (role === '3') {
+        state.active = "1"
+        state.indexComponent = "PublicTable"
+        state.activeIndex = '1'
+        // state.tableInfo[0].isActive = true;
+      }
+      console.log(role)
 
       // console.log(state.indexComponent)
       // 加载目录
       try {
-        await search()
+        if (role !== '1') {
+          await search()
+        }
       } catch (e) {
         console.log(e)
       }
@@ -301,11 +325,18 @@ export default {
     emitter.$on('refresh', async () => {
       // 调用属性事件
       await search();
-
     })
+
+    onUnmounted(
+        () => {
+          // 事件卸载
+          emitter.$off("refresh");
+          emitter.$off("change");
+        })
 
 
     emitter.$on("change", async (label) => {
+      console.log(label)
       // console.log(label)
       // 这里为辅助标签查询
       state.searchCondition.extra = label;

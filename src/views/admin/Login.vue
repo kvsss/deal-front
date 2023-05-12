@@ -45,7 +45,7 @@
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
 import {ElMessage} from "element-plus";
-import {removeNickName, removeToken, setNickName, setRole, setToken, setUid} from "@/utils/auth";
+import {getRole, removeNickName, removeToken, setNickName, setRole, setToken, setUid} from "@/utils/auth";
 import {login} from "@/api/user";
 import emitter from "@/utils/mitter";
 import router from "@/router";
@@ -53,7 +53,6 @@ import {adminLogin} from "@/api/admin";
 
 export default {
   // 登录
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
   setup() {
     const route = useRoute();
@@ -68,6 +67,12 @@ export default {
 
     // 已进入就触发
     onMounted(async () => {
+      const role = getRole();
+      if (role === "1") {
+/*        console.log("login")
+        console.log(role)*/
+        await router.push('/admin/user')
+      }
     });
 
 

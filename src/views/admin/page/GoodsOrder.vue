@@ -106,7 +106,7 @@
 <script>
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
-import {getUid} from "@/utils/auth";
+import {getRole, getUid} from "@/utils/auth";
 import {deleteCategory, getAllOrderInfo, getAllUserInfo} from "@/api/admin";
 import {
   getApplyGoods,
@@ -145,6 +145,12 @@ export default {
 
 
     onMounted(async () => {
+      const role = getRole();
+      if (!(role === "1")) {
+        // console.log(role)
+        await router.push('/adminLogin')
+        return
+      }
       console.log("进入")
       await search();
     });

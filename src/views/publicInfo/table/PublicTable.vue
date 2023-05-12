@@ -250,7 +250,7 @@
 import {reactive, toRefs, watch} from "vue";
 import router from "@/router";
 import {deleteGoods, listCategory, offGoods, updateGoodsInfo} from "@/api/goods";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 import emitter from "@/utils/mitter";
 import {getNickName, getToken, getUid} from "@/utils/auth";
 import {publishGoods} from "@/api/user";
@@ -335,33 +335,56 @@ export default {
 
     // 删除
     const remove = async (goodsId) => {
-      try {
-        const {data} = await deleteGoods(goodsId)
-        if (!data.ok) {
-          return;
-        }
-      } catch (e) {
-        console.log(e)
-      }
-      emitter.$emit("refresh", null)
-      ElMessage.success('操作成功！')
+      ElMessageBox.confirm('此操作将永久删除该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+          .then(async () => {
+            // 主体逻辑
+            try {
+              const {data} = await deleteGoods(goodsId)
+              if (!data.ok) {
+                return;
+              }
+            } catch (e) {
+              console.log(e)
+            }
+            emitter.$emit("refresh", null)
+            ElMessage.success('操作成功！')
+          })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     // 下架
     const off = async (goodsId) => {
-      try {
-        const {data} = await offGoods(goodsId)
-        if (!data.ok) {
-          return;
+      ElMessageBox.confirm('此操作将下架该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        // 主体逻辑
+        try {
+          const {data} = await offGoods(goodsId)
+          if (!data.ok) {
+            return;
+          }
+        } catch (e) {
+          // 网络异常
+          console.log(e)
         }
-      } catch (e) {
-        // 网络异常
-        console.log(e)
-      }
 
-      // 添加刷新事件
-      emitter.$emit("refresh", null)
-      ElMessage.success('操作成功！')
+        // 添加刷新事件
+        emitter.$emit("refresh", null)
+        ElMessage.success('操作成功！')
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
 
@@ -464,6 +487,7 @@ export default {
     }
 
     const change = (label) => {
+
       // 触发事件
       // 添加刷新事件
       emitter.$emit("change", label)

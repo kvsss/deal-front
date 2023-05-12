@@ -145,7 +145,7 @@
 <script>
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
-import {getUid} from "@/utils/auth";
+import {getRole, getUid} from "@/utils/auth";
 import {addCategory, deleteCategory, getAllCategoryInfo, getAllUserInfo, updateCategory} from "@/api/admin";
 import {
   getApplyGoods,
@@ -156,7 +156,7 @@ import {
   getPublicGoods,
   getSellGoods
 } from "@/api/user";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
   name: "GoodsType",
@@ -194,6 +194,12 @@ export default {
 
 
     onMounted(async () => {
+      const role = getRole();
+      if (!(role === "1")) {
+        // console.log(role)
+        await router.push('/adminLogin')
+        return
+      }
       console.log("进入")
       await search();
     });
@@ -241,16 +247,25 @@ export default {
 
 
     const remove = async (id) => {
-      try {
-        const {data} = await deleteCategory(state.form.uid, id)
-        if (data.ok) {
-          ElMessage.success("删除成功")
-          await getInfoList();
+      ElMessageBox.confirm('此操作将永久删除该商品类型, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          const {data} = await deleteCategory(state.form.uid, id)
+          if (data.ok) {
+            ElMessage.success("删除成功")
+            await getInfoList();
+          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
-      }
-
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     const showEditDialog = (id, index) => {

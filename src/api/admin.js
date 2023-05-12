@@ -60,9 +60,22 @@ export function deleteUser(id, uid) {
     return request.delete(`/behind/admin/user/${id}/${uid}`);
 }
 
-
-
 // 管理员登录
 export function adminLogin(params) {
     return request.post('/behind/admin/login', params);
+}
+
+// 管理员修改密码
+export function adminUpdatePassword(params) {
+    return request.put('/behind/admin/password', params);
+}
+
+// 管理员修改个人信息
+export function adminUpdateInfo(params) {
+    return request.put('/behind/admin/info', params);
+}
+
+// 获得订单或的汇总
+export function getOrderSummary(params) {
+    return request.get('/behind/admin/orderSummary', {params});
 }

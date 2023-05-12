@@ -252,7 +252,7 @@
 import {reactive, toRefs, watch} from "vue";
 import router from "@/router";
 import {deleteGoods, listCategory, onGoods, updateGoodsInfo} from "@/api/goods";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 import emitter from "@/utils/mitter";
 import {getNickName, getToken, getUid} from "@/utils/auth";
 import {publishGoods} from "@/api/user";
@@ -337,16 +337,26 @@ export default {
 
     // 删除
     const remove = async (goodsId) => {
-      try {
-        const {data} = await deleteGoods(goodsId)
-        if (!data.ok) {
-          return;
+      ElMessageBox.confirm('此操作将永久删除该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          const {data} = await deleteGoods(goodsId)
+          if (!data.ok) {
+            return;
+          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
-      }
-      emitter.$emit("refresh", null)
-      ElMessage.success('操作成功！')
+        emitter.$emit("refresh", null)
+        ElMessage.success('操作成功！')
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     // 下架

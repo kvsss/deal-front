@@ -28,12 +28,12 @@ axios.interceptors.response.use(res => {
         console.log(res.data)*/
 
     if (typeof res.data !== 'object') {
-        ElMessage.error('服务端异常！')
+        // ElMessage.error('服务端异常！')
         // return Promise.reject(res)
     }
     if (res.data.code !== "00000") {
         if (res.data.message) {
-            ElMessage.error(res.data.message)
+            // ElMessage.error(res.data.message)
         }
         // 登录已过期
         if (res.data.code === 'A0230') {

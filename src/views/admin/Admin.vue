@@ -15,18 +15,39 @@
             </el-main>
           </el-container>
         </el-container>-->
+    <!--
+        <div class="common-layout">
+          <el-container>
 
-    <div class="common-layout">
-      <el-container>
-        <el-aside width="200px">
-          <LeftMenu></LeftMenu>
+            <el-header>
+              <TopMenu></TopMenu>
+            </el-header>
+
+            <el-aside width="200px">
+              <LeftMenu></LeftMenu>
+            </el-aside>
+            <el-main>
+              <router-view style="padding-top: 20px">
+              </router-view>
+            </el-main>
+          </el-container>
+        </div>-->
+
+    <el-container style="height:100%;width:100%;position:fixed;">
+      <el-header style="padding:0;">
+        <topMenu></topMenu>
+      </el-header>
+      <el-container style="height:calc(100% - 60px)">
+        <el-aside style="background: rgb(84, 92, 100);" width="200px">
+          <leftMenu></leftMenu>
         </el-aside>
         <el-main>
-          <router-view style="padding-top: 20px">
-          </router-view>
+          <!--        <div style="border:1px solid red;">这里是主界面</div>-->
+          <!--          <breadcrumb></breadcrumb>-->
+          <router-view style="padding-top: 20px"></router-view>
         </el-main>
       </el-container>
-    </div>
+    </el-container>
   </div>
 </template>
 
@@ -35,10 +56,14 @@ import LeftMenu from "@/views/admin/leftMenu";
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
 import {getRole} from "@/utils/auth";
+import TopMenu from "@/views/admin/TopMenu";
 
 export default {
   name: "Admin",
-  components: {LeftMenu},
+  components: {
+    LeftMenu,
+    TopMenu
+  },
   setup(props, context) {
     const route = useRoute();
     const router = useRouter();
@@ -48,10 +73,7 @@ export default {
 
 
     onMounted(() => {
-      const role = getRole();
-      if (!(role === "1")) {
-        router.push('/adminLogin')
-      }
+
     })
 
     const handleOpen = (key, keyPath) => {

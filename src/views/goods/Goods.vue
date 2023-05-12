@@ -46,7 +46,7 @@
         <el-form-item>
           <ul>
             <li>
-              <h4> 收货地址</h4>
+              <h4> 联系地址</h4>
             </li>
             <li>
               <el-input
@@ -54,9 +54,20 @@
                   v-model="form.order.buyerAddress"
                   name="buyerAddress"
                   type="text"
-                  placeholder="收货地址"
+                  placeholder="联系地址"
               />
             </li>
+
+            <li style="margin-top:30px">
+              <h4> 联系时间</h4>
+              <el-date-picker
+                  v-model="form.order.time"
+                  type="date"
+                  placeholder="购买时间"
+                  size="default"
+              />
+            </li>
+
           </ul>
         </el-form-item>
 
@@ -126,6 +137,23 @@
         </div>
 
       </div>
+    </div>
+
+
+    <div class="goods_middle box_center box_shadow cf">
+
+
+      <el-row>
+        <el-col :span="4"><a href="javascript:void(0)">
+          <img
+              class="user_img"
+              :src="`${imgBaseUrl}` + `${seller.userPhoto}`"
+              :alt="goods.goodsTitle"/>
+        </a></el-col>
+        <el-col :span="4"> <div style="margin-top:30px">发布用户名:{{ seller.nickName }}</div></el-col>
+        <el-col :span="4"><div style="margin-top:30px">发布数量: {{ seller.publicCount }}</div></el-col>
+        <el-col :span="4"><div style="margin-top:30px">成交数量: {{ seller.makeCount }}</div></el-col>
+      </el-row>
     </div>
 
 
@@ -279,7 +307,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, reactive, toRefs} from "vue";
 import {getToken, getUid} from "@/utils/auth";
-import {addVisitCount, getGoodsById, listNewestComments} from "@/api/goods";
+import {addVisitCount, getGoodsById, getSeller, listNewestComments} from "@/api/goods";
 import no_comment from "@/assets/images/no_comment.png";
 import man from "@/assets/images/man.png";
 import {ElMessage} from "element-plus";
@@ -295,6 +323,7 @@ export default {
       token: getToken(),
       editDialogVisible: false,
       goods: {},
+      seller: {},
       books: [],
       chapterAbout: {},
       commentContent: "",
@@ -311,7 +340,8 @@ export default {
           price: '',
           buyerName: '',
           buyerAddress: '',
-          buyerPhone: ''
+          buyerPhone: '',
+          time: ''
         }
       },
     });
@@ -319,12 +349,23 @@ export default {
 
     onMounted(() => {
       const goodsId = route.params.id;
-      loadBook(goodsId);
+      loadGoods(goodsId);
       loadNewestComments(goodsId);
+      loadSeller(goodsId);
     })
 
 
-    const loadBook = async (goodsId) => {
+    const loadSeller = async (goodsId) => {
+      try {
+        const {data} = await getSeller(goodsId);
+        state.seller = data.data;
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+
+    const loadGoods = async (goodsId) => {
       try {
         const {data} = await getGoodsById(goodsId);
         state.goods = data.data;
@@ -348,6 +389,12 @@ export default {
     }
 
     const buy = () => {
+      if (!getToken()) {
+        router.push({
+          name: "login",
+        });
+        return;
+      }
       const goodsId = route.params.id;
       // 打开购买框
       state.editDialogVisible = true;
@@ -425,8 +472,40 @@ export default {
       }
     }
 
+    const check = () => {
+      // console.log("sate=========", state.form.goods)
+
+      if (!state.form.order.buyerName) {
+        ElMessage.error("收货人不能为空！");
+        return false;
+      }
+
+
+      if (!state.form.order.buyerPhone) {
+        ElMessage.error("电话号码不能为空！");
+        return false;
+      }
+
+      if (!/^1[3-9]\d{9}$/.test(state.form.order.buyerPhone)) {
+        ElMessage.error("手机号格式不正确！");
+        return false;
+      }
+
+      if (!state.form.order.buyerAddress) {
+        ElMessage.error("地址不能为空！");
+        return false;
+      }
+      return true;
+    }
 
     const saveGoodsOrder = async () => {
+
+      // 发消息
+      if (!check()) {
+        return;
+      }
+
+
       try {
         state.form.order.goodsId = state.goods.goodsId;
         state.form.order.sellerId = state.goods.uid;
@@ -458,6 +537,7 @@ export default {
       deleteUserComment,
       goUpdateComment,
       saveGoodsOrder,
+      check,
     }
   }
 

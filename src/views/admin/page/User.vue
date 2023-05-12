@@ -96,7 +96,7 @@
 <script>
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
-import {getUid} from "@/utils/auth";
+import {getRole, getUid} from "@/utils/auth";
 import {deleteUser, disableUser, enableUser, getAllUserInfo} from "@/api/admin";
 import {
   getApplyGoods,
@@ -107,7 +107,7 @@ import {
   getPublicGoods,
   getSellGoods
 } from "@/api/user";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
   name: "User",
@@ -135,6 +135,12 @@ export default {
 
 
     onMounted(async () => {
+      const role = getRole();
+      if (!(role === "1")) {
+        // console.log(role)
+        await router.push('/adminLogin')
+        return
+      }
       console.log("进入")
       await search();
     });
@@ -193,15 +199,25 @@ export default {
     }
 
     const removeUser = async (uid) => {
-      try {
-        const {data} = await deleteUser(state.searchCondition.uid, uid);
-        if (data.ok) {
-          ElMessage.success("成功")
+      ElMessageBox.confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          const {data} = await deleteUser(state.searchCondition.uid, uid);
+          if (data.ok) {
+            ElMessage.success("成功")
+          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
-      }
-      await getInfoList();
+        await getInfoList();
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     return {

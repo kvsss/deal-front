@@ -107,7 +107,7 @@
 <script>
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {onMounted, reactive, toRefs} from "vue";
-import {getUid} from "@/utils/auth";
+import {getRole, getUid} from "@/utils/auth";
 import {adminDeleteGoods, adminOffGoods, getAllGoodsInfo, getAllUserInfo} from "@/api/admin";
 import {
   getApplyGoods,
@@ -118,7 +118,7 @@ import {
   getPublicGoods,
   getSellGoods
 } from "@/api/user";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
   name: "Goods",
@@ -146,6 +146,12 @@ export default {
 
 
     onMounted(async () => {
+      const role = getRole();
+      if (!(role === "1")) {
+        // console.log(role)
+        await router.push('/adminLogin')
+        return
+      }
       console.log("进入")
       await search();
     });
@@ -180,27 +186,47 @@ export default {
 
     // 下架商品
     const offGoods = async (id) => {
-      try {
-        const {data} = await adminOffGoods(state.searchCondition.uid, id);
-        if (data.ok) {
-          ElMessage.success("下架成功")
-          await getInfoList();
+      ElMessageBox.confirm('此操作将下架该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          const {data} = await adminOffGoods(state.searchCondition.uid, id);
+          if (data.ok) {
+            ElMessage.success("下架成功")
+            await getInfoList();
+          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
-      }
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     const removeGoods = async () => {
-      try {
-        const {data} = await adminDeleteGoods(state.searchCondition.uid, id);
-        if (data.ok) {
-          ElMessage.success("删除成功")
-          await getInfoList();
+      ElMessageBox.confirm('此操作将永久删除该商品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          const {data} = await adminDeleteGoods(state.searchCondition.uid, id);
+          if (data.ok) {
+            ElMessage.success("删除成功")
+            await getInfoList();
+          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
-      }
+      })
+          .catch(() => {
+            // 用户点击取消
+            ElMessage.info('已取消')
+          })
     }
 
     const change = async (label) => {

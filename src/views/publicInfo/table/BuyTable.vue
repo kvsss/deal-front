@@ -2,60 +2,70 @@
 
   <div>
     <!-- 模态窗口   -->
-        <el-dialog
-            v-model="editDialogVisible"
-            title="修改信息"
-            align-center
-            style=""
-        >
-          <el-form :model="form.info" label-width=" 120px " style=" margin: 0 auto; width: 650px;">
+    <el-dialog
+        v-model="editDialogVisible"
+        title="修改信息"
+        align-center
+        style=""
+    >
+      <el-form :model="form.info" label-width=" 120px " style=" margin: 0 auto; width: 650px;">
 
-            <el-form-item>
-              <ul>
-                <li>
-                  <h4> 联系方式</h4>
-                </li>
-                <li>
-                  <el-input
-                      class="input_size "
-                      v-model="form.info.buyerPhone"
-                      name="goodsTitle"
-                      type="text"
-                      id="goodsTitle"
-                      placeholder="闲置信息"
-                  />
-                </li>
-              </ul>
-            </el-form-item>
-            <el-form-item>
-              <ul>
-                <li>
-                  <h4> 收货地址</h4>
-                </li>
-                <li>
-                  <el-input
-                      class="input_size "
-                      v-model="form.info.buyerAddress"
-                      type="text"
-                      placeholder="详细情况"
-                  />
-                </li>
-              </ul>
-            </el-form-item>
+        <el-form-item>
+          <ul>
+            <li>
+              <h4> 联系方式</h4>
+            </li>
+            <li>
+              <el-input
+                  class="input_size "
+                  v-model="form.info.buyerPhone"
+                  name="goodsTitle"
+                  type="text"
+                  id="goodsTitle"
+                  placeholder="联系方式"
+              />
+            </li>
+          </ul>
+        </el-form-item>
+        <el-form-item>
+          <ul>
+            <li>
+              <h4> 交易地址</h4>
+            </li>
+            <li>
+              <el-input
+                  class="input_size "
+                  v-model="form.info.buyerAddress"
+                  type="text"
+                  placeholder="交易地址"
+              />
+            </li>
+
+            <li style="margin-top:30px">
+              <h4> 交易时间</h4>
+              <el-date-picker
+                  v-model="time"
+                  type="date"
+                  placeholder="交易时间"
+                  size="default"
+              />
+            </li>
+          </ul>
+
+        </el-form-item>
 
 
-            <el-form-item>
+        <el-form-item>
                 <span class="dialog-footer">
                   <el-button @click="editDialogVisible = false">取消</el-button>
-                  <el-button color="#626aef"    style="margin-left: 200px;"
+                  <el-button color="#626aef" style="margin-left: 200px;"
                              class="publish" type="primary" @click="save">
-                    发布
+                    修改
                   </el-button>
                 </span>
-            </el-form-item>
-          </el-form>
-        </el-dialog>
-
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 
     <ul>
       <li>
@@ -87,7 +97,7 @@
                 <div class="items_txt">
                   <ul>
                     <li style="margin-top:20px">
-<!--                      {{item.extra}}-->
+                      <!--                      {{item.extra}}-->
                       <div v-if="item.extra === '1' ">
                         <el-icon>
                           <PriceTag/>
@@ -133,7 +143,8 @@
                   <div v-if="choose === '2'">
                     <ul>
                       <li>
-                        <el-button class="margin_top_25" type="success" @click="edit(item.orderId,index)"> 修改信息</el-button>
+                        <el-button class="margin_top_25" type="success" @click="edit(item.orderId,index)"> 修改信息
+                        </el-button>
                       </li>
 
                       <li>
@@ -183,6 +194,7 @@ export default {
       imgBaseUrl: process.env.VUE_APP_BASE_IMG_URL,
       choose: '1',
       editDialogVisible: false,
+      time: '',
       form: {
         info: {
           orderId: '',
@@ -218,7 +230,7 @@ export default {
     }
 
     // 编辑
-    const edit = (goodsId,index) => {
+    const edit = (goodsId, index) => {
       // 属性绑定
       state.form.info.orderId = props.dataList[index].orderId
       state.form.info.buyerAddress = props.dataList[index].buyerAddress
